@@ -106,6 +106,4 @@ Contraseña: 123456
 
 ## Dato Extra
 
-Descarga el archivo .js de potugues a español accediendo al grupo de whatsapp: [Sistemas con WhatsApp](https://chat.whatsapp.com/HR9PZZLqsRHAP8ZA8s0H5G)
-
-Y escribe la palabra clave en el chat del grupo "traduciraespañol" para que el BOT te comparta el link de descarga
+Para lograr cambiar el idioma, necesitas recompilar el frontend y redirecciones el script es.js como principal así tendras una parte en español, el resto tienes que reducirlo manualmente desde código accediendo. Puedes acceder al grupo de whatsapp: [Sistemas con WhatsApp](https://chat.whatsapp.com/HR9PZZLqsRHAP8ZA8s0H5G) e intercambiar ideas, pero para mas detalles conversa con el Admin del grupo.
