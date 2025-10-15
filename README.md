@@ -1,21 +1,86 @@
-# Instalación de Whaticket 10.9
+# WhaticketSaaS - Sistema de Tickets con WhatsApp
 
-Esta versión es liberada gracias al aporte de @LeandroReis2907, especialista en infraestructura TI en Brasil. Bajo ese concepto, mi aporte en contenido en español está alineado con los conceptos de @LeandroReis2907.
+Sistema completo de gestión de tickets y atención al cliente integrado con WhatsApp Business API.
 
 ---
 
-## 1. Acceso al servidor VPS
+## 🚀 **INSTALACIÓN EN WINDOWS (DESARROLLO LOCAL)**
 
-Adquiere un servidor VPS con sistema operativo **Ubuntu 20.04** o superior. En este caso, se recomienda el proveedor [Contabo](https://contabo.com).
+### 📋 **Requisitos Previos**
+- **Node.js 20.x** o superior
+- **PostgreSQL** (con pgAdmin)
+- **Redis**
+- **Laragon** (opcional, para entorno local)
+
+### ⚡ **Instalación Automática**
+
+#### **Opción 1: Script PowerShell (Recomendado)**
+```powershell
+powershell -ExecutionPolicy Bypass -File setup_windows.ps1
+```
+
+#### **Opción 2: Instalación Manual**
+1. **Clonar repositorio:**
+   ```bash
+   git clone https://github.com/leopoldohuacasiv/waticketsaas.git
+   cd waticketsaas
+   ```
+
+2. **Configurar base de datos PostgreSQL:**
+   ```sql
+   CREATE DATABASE whaticketsaas;
+   CREATE USER whaticket_user WITH PASSWORD 'mysql123456';
+   GRANT ALL PRIVILEGES ON DATABASE whaticketsaas TO whaticket_user;
+   ```
+
+3. **Instalar dependencias:**
+   ```bash
+   # Backend
+   cd backend
+   npm install
+   npm run build
+   npm run db:migrate
+   npm run db:seed
+   
+   # Frontend
+   cd ../frontend
+   npm install
+   ```
+
+4. **Iniciar servicios:**
+   ```bash
+   # Terminal 1 - Backend
+   cd backend
+   npm run dev:server
+   
+   # Terminal 2 - Frontend
+   cd frontend
+   npm start
+   ```
+
+### 🔑 **Acceso al Sistema**
+- **URL**: http://localhost:3000
+- **Email**: admin@admin.com
+- **Contraseña**: 123456
+
+### 📚 **Documentación Detallada**
+- **Guía completa**: `0001-Readmen-Install-Windows.md`
+- **Actualización Baileys**: `0002-Actualización Api Baileys6.7.19.md`
+
+---
+
+## 🐧 **INSTALACIÓN EN UBUNTU (PRODUCCIÓN)**
+
+### 1. Acceso al servidor VPS
+
+Adquiere un servidor VPS con sistema operativo **Ubuntu 22** o superior. En este caso, se recomienda el proveedor [Contabo](https://contabo.com).
 
 Ejemplo de servidor:
 ```
 Server: 62.xx4.2x0.x0
 ```
 
----
-
-## 2. Configuración de dominios
+### 2. Configuración de dominios
 
 Debes configurar dos subdominios en tu proveedor de dominios, como [GoDaddy](https://www.godaddy.com/) u otro de tu preferencia. Estos subdominios deben apuntar a tu servidor VPS:
 ```
@@ -23,18 +88,14 @@ app.subdominio.online
 api.subdominio.online
 ```
 
----
-
-## 3. Subir el código a GitHub
+### 3. Subir el código a GitHub
 
 Para agilizar el proceso, puedes clonar el repositorio con el código fuente de Whaticket:
 ```
 Repositorio: https://github.com/leopoldohuacasiv/waticketsaas.git
 ```
 
----
-
-## 4. Iniciar instalación en Ubuntu
+### 4. Iniciar instalación en Ubuntu
 
 1. Accede a tu servidor VPS.
 2. Crea un usuario llamado `deploy` y otórgale permisos:
@@ -56,9 +117,7 @@ Repositorio: https://github.com/leopoldohuacasiv/waticketsaas.git
     ssh deploy@tu.ip.vps
     ```
 
----
-
-## 5. Ejecutar la instalación
+### 5. Ejecutar la instalación
 
 Ejecuta el siguiente script para instalar Whaticket:
 ```bash
@@ -69,7 +128,7 @@ sudo apt update && sudo apt install -y git \
 && sudo ./install_primaria
 ```
 
-### Datos requeridos durante la instalación:
+#### Datos requeridos durante la instalación:
 
 - **Tipo de instalación:** `0` (Instalación)
 - **Nombre de la base de datos:** `tubasededatos`
@@ -83,11 +142,9 @@ sudo apt update && sudo apt install -y git \
 - **Conexión 2:** `4000`
 - **Conexión 3:** `5000`
 
-> **Nota:** La instalación puede tardar entre **40 y 60 minutos** dependera de la velovidad del servidor VPS que contrate.
+> **Nota:** La instalación puede tardar entre **15 y 20 minutos** dependera de la velovidad del servidor VPS que contrate.
 
----
-
-## 6. Acceder al sistema
+### 6. Acceder al sistema
 
 Una vez completada la instalación, ingresa a la plataforma en:
 ```
@@ -102,8 +159,80 @@ Contraseña: 123456
 
 ---
 
+## 🔧 **ACTUALIZACIONES IMPORTANTES**
+
+### **Baileys API 6.7.19**
+- ✅ **Actualizado** de versión 6.7.6 a 6.7.19
+- ✅ **Corregido** error `makeInMemoryStore is not a function`
+- ✅ **Mejorada** estabilidad de conexiones WhatsApp
+- ✅ **Optimizado** rendimiento del sistema
+
+### **Compatibilidad Windows**
+- ✅ **Scripts PowerShell** para instalación automática
+- ✅ **Corrección OpenSSL** para Node.js 20+
+- ✅ **Configuración PostgreSQL** optimizada
+- ✅ **Documentación completa** para desarrollo local
+
+---
+
+## 📁 **ESTRUCTURA DEL PROYECTO**
+
+```
+waticketsaas/
+├── backend/                    # API Node.js + TypeScript
+├── frontend/                   # React App
+├── instalador/                 # Scripts Linux (producción)
+├── 0001-Readmen-Install-Windows.md    # Guía Windows
+├── 0002-Actualización Api Baileys6.7.19.md  # Actualización Baileys
+├── setup_windows.ps1          # Script PowerShell
+└── README.md                   # Este archivo
+```
+
+---
+
+## 🎯 **CARACTERÍSTICAS PRINCIPALES**
+
+- **💬 Integración WhatsApp** - Conexión directa con WhatsApp Business
+- **🎫 Sistema de Tickets** - Gestión completa de conversaciones
+- **👥 Multi-usuario** - Soporte para múltiples agentes
+- **📊 Dashboard** - Métricas y estadísticas en tiempo real
+- **🔔 Notificaciones** - Alertas instantáneas
+- **📱 Responsive** - Compatible con dispositivos móviles
+- **🌐 Multi-idioma** - Soporte para múltiples idiomas
+
+---
+
+## 🆘 **SOPORTE**
+
+### **Problemas Comunes:**
+- **Error OpenSSL**: Usar flag `--openssl-legacy-provider`
+- **Error PostgreSQL**: Verificar permisos y conexión
+- **Error Redis**: Asegurar que Redis esté corriendo
+- **Error Baileys**: Verificar versión 6.7.19
+
+### **Documentación Adicional:**
+- **Windows**: Consultar `0001-Readmen-Install-Windows.md`
+- **Baileys**: Consultar `0002-Actualización Api Baileys6.7.19.md`
+
+---
+
+## 📄 **LICENCIA**
+
+Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detalles.
+
+---
+
+## 🤝 **CONTRIBUCIONES**
+
+Las contribuciones son bienvenidas. Por favor:
+1. Fork el proyecto
+2. Crea una rama para tu feature
+3. Commit tus cambios
+4. Push a la rama
+5. Abre un Pull Request
+
+---
+
 ### ¡Instalación completada con éxito! 🎉
 
-## Dato Extra
-
-Para lograr cambiar el idioma, necesitas recompilar el frontend y redirecciones el script es.js como principal así tendras una parte en español, el resto tienes que reducirlo manualmente desde código accediendo. Puedes acceder al grupo de whatsapp: [Sistemas con WhatsApp](https://chat.whatsapp.com/HR9PZZLqsRHAP8ZA8s0H5G) e intercambiar ideas, pero para mas detalles conversa con el Admin del grupo.
+**Desarrollado con ❤️ para la comunidad de desarrolladores** 

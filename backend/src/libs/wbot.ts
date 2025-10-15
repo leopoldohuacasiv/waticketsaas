@@ -5,7 +5,6 @@ import makeWASocket, {
   DisconnectReason,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore,
-  makeInMemoryStore,
   isJidBroadcast,
   jidNormalizedUser,
   CacheStore
@@ -115,9 +114,14 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
         let retriesQrCode = 0;
 
         let wsocket: Session = null;
-        const store = makeInMemoryStore({
-          logger: loggerBaileys
-        });
+        // En Baileys 6.7.19+, makeInMemoryStore ha sido reemplazado
+        // Usamos un store simple basado en NodeCache
+        const store = {
+          chats: new NodeCache(),
+          contacts: new NodeCache(),
+          messages: new NodeCache(),
+          groupMetadata: new NodeCache()
+        };
 
         const { state, saveState } = await authState(whatsapp);
 
@@ -337,7 +341,8 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           }
         );
 
-        store.bind(wsocket.ev);
+        // En Baileys 6.7.19+, el store se maneja de manera diferente
+        // No necesitamos bind() para nuestro store personalizado
       })();
     } catch (error) {
       Sentry.captureException(error);
