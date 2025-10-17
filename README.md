@@ -235,4 +235,12 @@ Las contribuciones son bienvenidas. Por favor:
 
 ### ¡Instalación completada con éxito! 🎉
 
-**Desarrollado con ❤️ para la comunidad de desarrolladores** 
+**💚 Si este proyecto te ha sido útil y deseas apoyar su crecimiento, puedes contribuir con una donación voluntaria.**
+**Tu apoyo me motiva a seguir mejorando y mantener la versión libre de Whaticket SaaS para toda la comunidad.**
+
+## 💚 Formas de apoyo
+
+- [💸 Donar vía PayPal](https://www.paypal.com/donate/?hosted_button_id=MAX4ME9FBH5NQ)  
+- 🪙 **Binance USDT**: [leowin8@gmail.com](mailto:leowin8@gmail.com) *(leopoldohuacasiv)*  
+- 🔐 **Wallet USDT**: `TExmTzFgUksfDvbzofcF6ereoMNFQW1zmF`
+
