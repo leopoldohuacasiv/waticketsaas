@@ -299,8 +299,10 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 
 ## 🤝 **CONTRIBUCIONES**
 
-💸 Donar vía PayPal
+💸 Donar vía PayPal: **[WhaticketSaas](https://www.paypal.com/donate/?hosted_button_id=MAX4ME9FBH5NQ)**.
+
 🪙 Binance USDT: leowin8@gmail.com (leopoldohuacasiv)
+
 🔐 Wallet USDT: TExmTzFgUksfDvbzofcF6ereoMNFQW1zmF
 
 ---
