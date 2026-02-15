@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://watoolx.todosistemas.online/wp-content/uploads/2025/10/wticket-31.webp" alt="WhaticketSaaS Logo" width="70%"/>
+</p>
+
 # WhaticketSaaS - Sistema de Tickets con WhatsApp
 
 Sistema de gestión de tickets y atención al cliente integrado con WhatsApp Business API.
