@@ -50,6 +50,47 @@ print_banner() {
 }
 
 # =============================================================================
+# NODE.JS 20 (requerido por Baileys/crypto, evita "crypto is not defined")
+# =============================================================================
+
+ensure_node20() {
+    log_step "Verificando Node.js 20 (requerido)"
+    
+    local need_install=0
+    if ! command -v node &>/dev/null; then
+        need_install=1
+    else
+        local node_ver
+        node_ver=$(node -v 2>/dev/null | cut -d. -f1 | tr -d 'v')
+        if [ -z "$node_ver" ] || [ "$node_ver" -lt 20 ]; then
+            log_warn "Node.js actual: $(node -v). Baileys/WhatsApp requiere Node 20+ (crypto global)."
+            need_install=1
+        fi
+    fi
+    
+    if [ "$need_install" -eq 1 ]; then
+        log_info "Instalando Node.js 20 desde NodeSource..."
+        if curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - 2>/dev/null; then
+            if sudo apt install -y nodejs 2>/dev/null; then
+                log_ok "Node.js instalado: $(node -v)"
+                log_info "Reinstalando PM2 con Node 20..."
+                sudo npm install -g pm2 2>/dev/null || true
+            else
+                log_error "Fallo instalación Node.js. Ejecutar manualmente: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install -y nodejs"
+                exit 1
+            fi
+        else
+            log_error "No se pudo configurar NodeSource. Instalar Node 20 manualmente y volver a ejecutar."
+            echo -e "${YELLOW}  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -${NC}"
+            echo -e "${YELLOW}  sudo apt install -y nodejs${NC}"
+            exit 1
+        fi
+    else
+        log_ok "Node.js: $(node -v)"
+    fi
+}
+
+# =============================================================================
 # VERIFICACIÓN DE REQUISITOS
 # =============================================================================
 
@@ -59,7 +100,7 @@ check_prerequisites() {
     local missing=()
     
     if ! command -v node &>/dev/null; then
-        missing+=("Node.js (sudo apt install nodejs)")
+        missing+=("Node.js")
     else
         log_ok "Node.js: $(node -v)"
     fi
@@ -266,17 +307,29 @@ install_frontend() {
     log_info "npm install (frontend)..."
     npm install --legacy-peer-deps
     
+    # Asegurar @emotion/react (requerido por @mui/material)
+    log_info "Verificando @emotion/react..."
+    npm install @emotion/react@^11.11.1 --legacy-peer-deps
+    
     log_info "Build con NODE_OPTIONS (OpenSSL legacy)..."
     export NODE_OPTIONS='--max-old-space-size=8192 --openssl-legacy-provider'
-    npm run build
+    export GENERATE_SOURCEMAP=false
+    if ! npm run build; then
+        log_error "El build del frontend falló. Revisar errores arriba."
+        exit 1
+    fi
+    
+    if [ ! -f "build/index.html" ]; then
+        log_error "No se generó build/index.html. El frontend no compiló correctamente."
+        exit 1
+    fi
+    log_ok "Build verificado: build/index.html existe"
     
     # Corregir server.js si tiene comentario mal formado (/simple -> // simple)
-    if head -1 server.js 2>/dev/null | grep -q '^/simple'; then
+    if [ -f server.js ] && head -1 server.js 2>/dev/null | grep -q '^/simple'; then
         sed -i '1s|^/simple|// simple|' server.js
         log_ok "server.js corregido (comentario)"
     fi
-    
-    # server.js ya usa puerto 3005 por defecto (coincide con Nginx)
     
     cd "$PROJECT_ROOT"
     log_ok "Frontend listo"
@@ -411,6 +464,7 @@ main() {
         sudo systemctl start redis-server 2>/dev/null || true
     fi
     
+    ensure_node20
     check_prerequisites
     capture_config
     fix_permissions

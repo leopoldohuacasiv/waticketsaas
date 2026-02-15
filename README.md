@@ -17,7 +17,7 @@ Sistema de gestión de tickets y atención al cliente integrado con WhatsApp Bus
 | **Uso recomendado** | Aprendizaje, demostraciones, práctica, entornos de estudio | Negocios reales, clientes pagadores, venta de servicios |
 | **NO utilizar para** | Comercializar, vender como producto, operaciones empresariales | — |
 
-**En resumen:** Este instalador de WhaticketSaaS está pensado para quien quiere **aprender**, **experimentar** o **comprender** cómo funciona un sistema de tickets con WhatsApp. **No está diseñado para hacer negocios ni venderlo**. Para proyectos empresariales y escalables, consultar **[WATOOLX](https://github.com/leopoldohuacasiv/watoolx)**.
+**En resumen:** Este instalador de WhaticketSaaS está pensado para quien quiere **aprender**, **experimentar** o **comprender** cómo funciona un sistema de tickets con WhatsApp. **No está diseñado para hacer negocios ni venderlo**. Para proyectos empresariales y escalables: **[WATOOLX - Presentación](https://watoolx.todosistemas.online/presentacion-watoolx/)** | [Repositorio](https://github.com/leopoldohuacasiv/watoolxoficial)
 
 ---
 
