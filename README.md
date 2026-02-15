@@ -299,12 +299,9 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 
 ## 🤝 **CONTRIBUCIONES**
 
-Las contribuciones son bienvenidas. Por favor:
-1. Fork el proyecto
-2. Crea una rama para tu feature
-3. Commit tus cambios
-4. Push a la rama
-5. Abre un Pull Request
+💸 Donar vía PayPal
+🪙 Binance USDT: leowin8@gmail.com (leopoldohuacasiv)
+🔐 Wallet USDT: TExmTzFgUksfDvbzofcF6ereoMNFQW1zmF
 
 ---
 
