@@ -1,0 +1,273 @@
+# ========================================
+# WHATICKETSAAS - GITIGNORE PRINCIPAL
+# ========================================
+# Evita subir archivos locales, credenciales y builds
+# Mantiene solo código fuente y configuración de ejemplo
+# ========================================
+
+# ========================================
+# ARCHIVOS DE CONFIGURACIÓN SENSIBLE
+# ========================================
+
+# Variables de entorno (contienen credenciales y secrets)
+.env
+.env.local
+.env.production
+.env.development
+backend/.env
+frontend/.env
+*.env
+!.env.example
+!.env.exemple
+
+# Archivos de configuración con datos sensibles
+config/database.js
+config/sentry.js
+
+# ========================================
+# DEPENDENCIAS Y NODE_MODULES
+# ========================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# ========================================
+# ARCHIVOS DE BUILD Y COMPILACIÓN
+# ========================================
+
+# Backend compilado
+backend/dist/
+dist/
+
+# Frontend compilado
+frontend/build/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.gatsby/
+
+# ========================================
+# LOGS Y ARCHIVOS TEMPORALES
+# ========================================
+
+# Logs
+*.log
+logs/
+installer.log
+install_ubuntu.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+*.tmp
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ========================================
+# PM2 Y ECOSYSTEM
+# ========================================
+
+# PM2
+.pm2/
+ecosystem.config.js.bak
+ecosystem.config.js.backup
+
+# ========================================
+# BASE DE DATOS
+# ========================================
+
+# Database files (SQLite, si se usa en desarrollo)
+*.sqlite
+*.sqlite3
+*.db
+
+# ========================================
+# WHATSAPP Y SESIONES
+# ========================================
+
+# WhatsApp session files
+*.session
+*.session.json
+*.session.bak
+sessions/
+whatsapp-sessions/
+backend/sessions/
+backend/.wwebjs_auth/
+backend/.wwebjs_cache/
+
+# QR Codes
+*.qr
+
+# ========================================
+# ARCHIVOS PÚBLICOS Y UPLOADS
+# ========================================
+
+# Uploads de usuarios (media, documentos, etc.)
+uploads/
+backend/public/uploads/
+frontend/public/uploads/
+media/
+backend/public/media/
+
+# Mantener .gitkeep para preservar estructura
+!backend/public/uploads/.gitkeep
+!frontend/public/uploads/.gitkeep
+
+# ========================================
+# CERTIFICADOS Y SSL
+# ========================================
+
+# SSL Certificates
+*.pem
+*.crt
+*.key
+*.p12
+*.pfx
+certs/
+ssl/
+
+# ========================================
+# SISTEMA OPERATIVO
+# ========================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+desktop.ini
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ========================================
+# EDITORES Y IDES
+# ========================================
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+
+# Cursor
+.cursor/
+
+# JetBrains (IntelliJ, WebStorm, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ========================================
+# TESTING Y COVERAGE
+# ========================================
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# ========================================
+# DOCKER (si se usa)
+# ========================================
+
+# Docker
+.dockerignore
+docker-compose.yml
+docker-compose.yaml
+Dockerfile
+.docker/
+
+# ========================================
+# BACKUPS Y ARCHIVOS ANTIGUOS
+# ========================================
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+
+# ========================================
+# ARCHIVOS DE SISTEMA Y RELEASE
+# ========================================
+
+# Release files (zips, tar.gz demasiado grandes)
+releases/*.zip
+releases/*.tar.gz
+releases/*.rar
+
+# ========================================
+# WHATICKETSAAS - ARCHIVOS ESPECÍFICOS
+# ========================================
+
+# Instalador log
+installer.log
+install_ubuntu.log
+install_ubuntu.log.*
+
+# Configuración específica de VPS (generada por el instalador)
+backend/ecosystem.config.js
+!backend/ecosystem.config.js
+
+# ========================================
+# EXCEPCIONES - ARCHIVOS QUE SÍ SE INCLUYEN
+# ========================================
+
+# Scripts de instalación y setup
+!install.sh
+!setup_windows.ps1
+
+# Documentación
+!*.md
+!README.md
+!docs/
+
+# Configuración de ejemplo
+!.env.example
+!.env.exemple
+!backend/.env.example
+!frontend/.env.exemple

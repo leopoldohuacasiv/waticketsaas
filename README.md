@@ -1,6 +1,19 @@
 # WhaticketSaaS - Sistema de Tickets con WhatsApp
 
-Sistema completo de gestión de tickets y atención al cliente integrado con WhatsApp Business API.
+Sistema de gestión de tickets y atención al cliente integrado con WhatsApp Business API.
+
+---
+
+## ⚠️ **AVISO IMPORTANTE - DIFERENCIACIÓN DE PROYECTOS**
+
+| | **WhaticketSaaS** (este proyecto) | **WATOOLX** |
+|---|-----------------------------------|-------------|
+| **Alcance** | Versión **BÁSICA**, instalador sencillo | Arquitectura **empresarial DB-first** para negocios a escala |
+| **Propósito** | Uso **académico**, enseñanza y exploración en el mundo de la programación | Producción comercial, operaciones empresariales |
+| **Uso recomendado** | Aprendizaje, demostraciones, práctica, entornos de estudio | Negocios reales, clientes pagadores, venta de servicios |
+| **NO utilizar para** | Comercializar, vender como producto, operaciones empresariales | — |
+
+**En resumen:** Este instalador de WhaticketSaaS está pensado para quien quiere **aprender**, **experimentar** o **comprender** cómo funciona un sistema de tickets con WhatsApp. **No está diseñado para hacer negocios ni venderlo**. Para proyectos empresariales y escalables, consultar **[WATOOLX](https://github.com/leopoldohuacasiv/watoolx)**.
 
 ---
 
@@ -69,93 +82,148 @@ powershell -ExecutionPolicy Bypass -File setup_windows.ps1
 
 ---
 
-## 🐧 **INSTALACIÓN EN UBUNTU (PRODUCCIÓN)**
+## 🐧 **INSTALACIÓN EN UBUNTU (VPS) - PASO A PASO (RECOMENDADO)**
 
-### 1. Acceso al servidor VPS
+Instalador **básico** con script integrado (`install.sh`). Uso académico y demostración.
 
-Adquiere un servidor VPS con sistema operativo **Ubuntu 22** o superior. En este caso, se recomienda el proveedor [Contabo](https://contabo.com).
+---
 
-Ejemplo de servidor:
-```
-Server: 62.xx4.2x0.x0
-```
+### **Paso 1: Obtener un VPS con Ubuntu**
 
-### 2. Configuración de dominios
+- Contrata un VPS con **Ubuntu 22.04** (o superior).
+- Anota la **IP** del servidor y las credenciales de acceso SSH.
+- Conecta por SSH (ej: `ssh ubuntu@tu.ip.vps`).
 
-Debes configurar dos subdominios en tu proveedor de dominios, como [GoDaddy](https://www.godaddy.com/) u otro de tu preferencia. Estos subdominios deben apuntar a tu servidor VPS:
-```
-app.subdominio.online
-api.subdominio.online
-```
+---
 
-### 3. Subir el código a GitHub
+### **Paso 2: Instalar dependencias del sistema**
 
-Para agilizar el proceso, puedes clonar el repositorio con el código fuente de Whaticket:
-```
-Repositorio: https://github.com/leopoldohuacasiv/waticketsaas.git
-```
+En el VPS, ejecuta:
 
-### 4. Iniciar instalación en Ubuntu
-
-1. Accede a tu servidor VPS.
-2. Crea un usuario llamado `deploy` y otórgale permisos:
-    ```bash
-    sudo adduser deploy
-    ```
-    - Asigna una contraseña.
-    - Presiona **Enter** en los campos adicionales.
-3. Otorga permisos sudo al usuario:
-    ```bash
-    sudo usermod -aG sudo deploy
-    ```
-4. Cierra la sesión con:
-    ```bash
-    exit
-    ```
-5. Vuelve a ingresar como el usuario `deploy`:
-    ```bash
-    ssh deploy@tu.ip.vps
-    ```
-
-### 5. Ejecutar la instalación
-
-Ejecuta el siguiente script para instalar Whaticket:
 ```bash
-sudo apt update && sudo apt install -y git \
-&& git clone https://github.com/weliton2k/instalador-whaticket-main-v.10.0.1.git \
-&& sudo chmod -R 777 instalador-whaticket-main-v.10.0.1 \
-&& cd instalador-whaticket-main-v.10.0.1 \
-&& sudo ./install_primaria
+sudo apt update
+sudo apt install -y nodejs npm postgresql postgresql-contrib redis-server nginx certbot python3-certbot-nginx git
+sudo npm install -g pm2
 ```
 
-#### Datos requeridos durante la instalación:
-
-- **Tipo de instalación:** `0` (Instalación)
-- **Nombre de la base de datos:** `tubasededatos`
-- **Repositorio de GitHub:** `https://github.com/leopoldohuacasiv/waticketsaas.git`
-- **Instancia/Empresa:** `ponunnombre`
-- **Valor de QR:** `999`
-- **Usuarios conectados:** `999`
-- **Subdominio app:** `app.subdominio.com`
-- **Subdominio API:** `api.subdominio.com`
-- **Conexión 1:** `3000`
-- **Conexión 2:** `4000`
-- **Conexión 3:** `5000`
-
-> **Nota:** La instalación puede tardar entre **15 y 20 minutos** dependera de la velovidad del servidor VPS que contrate.
-
-### 6. Acceder al sistema
-
-Una vez completada la instalación, ingresa a la plataforma en:
-```
-app.subdominio.com
+Verifica:
+```bash
+node -v    # Debe mostrar v20.x o superior
+npm -v
+redis-cli ping   # Debe responder PONG
+nginx -v
+pm2 -v
 ```
 
-Credenciales por defecto:
+---
+
+### **Paso 3: Clonar el proyecto en el VPS**
+
+```bash
+cd ~
+git clone https://github.com/leopoldohuacasiv/waticketsaas.git
+cd waticketsaas
 ```
-Usuario: admin@admin.com
-Contraseña: 123456
+
+Deberías ver la carpeta con `backend/`, `frontend/`, `install.sh`, etc.
+
+---
+
+### **Paso 4: Configurar dominios (antes de instalar)**
+
+En tu proveedor de dominios (GoDaddy, Namecheap, etc.) crea **dos registros A** apuntando a la IP de tu VPS:
+
+| Tipo | Nombre     | Valor (IP)   | Ejemplo                   |
+|------|------------|--------------|---------------------------|
+| A    | appapi     | IP_de_tu_VPS | appapi.tudominio.com      |
+| A    | appchat    | IP_de_tu_VPS | appchat.tudominio.com     |
+
+Espera unos minutos a que propaguen los DNS.
+
+---
+
+### **Paso 5: Ejecutar el instalador**
+
+```bash
+cd ~/waticketsaas
+chmod +x install.sh
+./install.sh
 ```
+
+El script solo te pedirá **2 datos** (todo lo demás viene predeterminado):
+
+| Pregunta | Ejemplo de respuesta |
+|----------|------------------------|
+| Subdominio API | `appapi.tudominio.com` |
+| Subdominio Frontend | `appchat.tudominio.com` |
+
+**Datos predeterminados:** Base de datos `whaticket`, usuario/contraseña `whaticket`, puertos 4010/3005, SSL automático con Certbot.
+
+**Qué hace el instalador:**
+- Crea la base de datos PostgreSQL
+- Genera los archivos `.env` (backend y frontend)
+- Instala dependencias, compila backend y frontend
+- Ejecuta migraciones
+- Configura PM2 (backend + frontend en segundo plano)
+- Configura Nginx como proxy
+- Configura SSL con Let's Encrypt automáticamente
+
+---
+
+### **Paso 6: Verificar que todo funciona**
+
+```bash
+pm2 list
+```
+
+Deben aparecer `waticketsaas-backend` y `waticketsaas-frontend` en estado **online**.
+
+Visita en el navegador:
+- **Frontend:** `https://appchat.tudominio.com`
+- **API:** `https://appapi.tudominio.com`
+
+---
+
+### **Paso 7: Acceder al sistema**
+
+- **URL:** `https://appchat.tudominio.com` (o el dominio que configuraste)
+- **Email:** `admin@admin.com`
+- **Contraseña:** `123456`
+
+---
+
+### **Comandos útiles después de instalar**
+
+```bash
+pm2 list           # Ver procesos
+pm2 logs           # Ver logs en vivo
+pm2 restart all    # Reiniciar backend y frontend
+```
+
+---
+
+### **Documentación detallada**
+
+Para instalación manual o solución de problemas: **`0003-Instalador para ubuntu linux.md`**
+
+---
+
+### **Opción alternativa: Instalador externo (instalador-whaticket)**
+
+Si prefieres el instalador externo de terceros:
+
+```bash
+sudo apt update && sudo apt install -y git
+git clone https://github.com/weliton2k/instalador-whaticket-main-v.10.0.1.git
+cd instalador-whaticket-main-v.10.0.1
+sudo chmod +x install_primaria
+sudo ./install_primaria
+```
+
+Durante la instalación usa:
+- **Repositorio:** `https://github.com/leopoldohuacasiv/waticketsaas.git`
+- **Subdominio app:** `aplication.tudominio.com`
+- **Subdominio API:** `api.tudominio.com`
 
 ---
 
@@ -184,7 +252,9 @@ waticketsaas/
 ├── instalador/                 # Scripts Linux (producción)
 ├── 0001-Readmen-Install-Windows.md    # Guía Windows
 ├── 0002-Actualización Api Baileys6.7.19.md  # Actualización Baileys
-├── setup_windows.ps1          # Script PowerShell
+├── 0003-Instalador para ubuntu linux.md     # Guía Ubuntu
+├── setup_windows.ps1          # Script PowerShell (Windows)
+├── install.sh                 # Instalador Ubuntu (Linux)
 └── README.md                   # Este archivo
 ```
 
@@ -212,6 +282,7 @@ waticketsaas/
 
 ### **Documentación Adicional:**
 - **Windows**: Consultar `0001-Readmen-Install-Windows.md`
+- **Ubuntu/Linux**: Consultar `0003-Instalador para ubuntu linux.md`
 - **Baileys**: Consultar `0002-Actualización Api Baileys6.7.19.md`
 
 ---
@@ -235,4 +306,4 @@ Las contribuciones son bienvenidas. Por favor:
 
 ### ¡Instalación completada con éxito! 🎉
 
-**Desarrollado con ❤️ para la comunidad de desarrolladores** 
+**Proyecto de carácter educativo y exploratorio.** Para soluciones empresariales a escala, consultar WATOOLX. 
