@@ -21,6 +21,37 @@ Sistema de gestión de tickets y atención al cliente integrado con WhatsApp Bus
 
 ---
 
+## 🔒 **SEGURIDAD — LEER ANTES DE INSTALAR**
+
+Este repositorio es un proyecto **académico** que no recibe actualizaciones de seguridad
+desde hace tiempo. **Tiene vulnerabilidades conocidas y no es apto para producción**
+ni para manejar datos reales de clientes.
+
+Entre los problemas identificados hay:
+
+- **Inyección SQL** en consultas armadas a mano.
+- **Aislamiento insuficiente entre empresas** (un usuario de una empresa podría llegar a datos de otra).
+- **Configuración insegura por defecto** (secretos y credenciales de fábrica).
+- **Dependencias desactualizadas** con vulnerabilidades publicadas.
+
+Si lo usas como punto de partida para tu propio desarrollo, haz primero una revisión de
+seguridad y no lo expongas a Internet con datos reales. Quien tenga experiencia en desarrollo
+podrá corregir estos puntos por su cuenta; si no la tienes y necesitas ayuda, contáctame
+de forma privada para evaluar un servicio específico.
+
+### Reportar una vulnerabilidad
+
+Si encuentras un problema de seguridad, **no abras un issue público**. Repórtalo de forma
+privada desde la pestaña **Security → Report a vulnerability** de este repositorio.
+
+### 🏅 Reconocimientos
+
+Gracias a **[kta1kri](https://github.com/kta1kri)**, investigador de seguridad, que el
+2026-10-01 encontró y reportó de forma privada y responsable una inyección SQL en este
+proyecto. Su reporte dio pie a una auditoría de seguridad completa.
+
+---
+
 ## 🚀 **INSTALACIÓN EN WINDOWS (DESARROLLO LOCAL)**
 
 ### 📋 **Requisitos Previos**
